@@ -1,0 +1,24 @@
+mqtt:
+  host: "mqtt://localhost"
+  status_topic: "modbus/status"
+
+modbus:
+  connections:
+    - driver: "tcp"
+      host: "localhost"
+      port: 502
+      id: 1
+      registers:
+        - address: 200
+          length: 1
+          interval: 1000
+          topic: "modbus/tcp/register0"
+    - driver: "tcp"
+      host: "localhost"
+      port: 503
+      id: 2
+      registers:
+        - address: 300
+          length: 1
+          interval: 2000
+          topic: "modbus/tcp/register1"
