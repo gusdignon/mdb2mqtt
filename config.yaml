@@ -9,16 +9,92 @@ modbus:
       port: 502
       id: 1
       registers:
-        - address: 200
+        - address: 0
           length: 1
           interval: 1000
-          topic: "modbus/tcp/register0"
-    - driver: "tcp"
-      host: "localhost"
-      port: 503
-      id: 2
-      registers:
-        - address: 300
+          datatype: "BOOL"
+          function: "readCoils"
+          topic: "modbus/tcp/coil0"
+        - address: 1
           length: 1
           interval: 2000
-          topic: "modbus/tcp/register1"
+          datatype: "INT16"
+          function: "readHoldingRegisters"
+          topic: "modbus/tcp/holding_register1"
+        - address: 2
+          length: 1
+          interval: 2000
+          datatype: "UINT16"
+          function: "readInputRegisters"
+          topic: "modbus/tcp/input_register2"
+        - address: 3
+          length: 2
+          interval: 2000
+          datatype: "INT32"
+          function: "readHoldingRegisters"
+          topic: "modbus/tcp/holding_register3_4"
+        - address: 5
+          length: 2
+          interval: 2000
+          datatype: "UINT32"
+          function: "readInputRegisters"
+          topic: "modbus/tcp/input_register5_6"
+        - address: 7
+          length: 2
+          interval: 2000
+          datatype: "Float32"
+          function: "readHoldingRegisters"
+          topic: "modbus/tcp/holding_register7_8"
+        - address: 9
+          length: 4
+          interval: 3000
+          datatype: "ASCII"
+          function: "readInputRegisters"
+          topic: "modbus/tcp/input_register9_12"
+    - driver: "rtu"
+      path: "/dev/ttyUSB0"
+      baudRate: 9600
+      id: 2
+      registers:
+        - address: 0
+          length: 1
+          interval: 1000
+          datatype: "BOOL"
+          function: "readCoils"
+          topic: "modbus/rtu/coil0"
+        - address: 1
+          length: 1
+          interval: 2000
+          datatype: "INT16"
+          function: "readHoldingRegisters"
+          topic: "modbus/rtu/holding_register1"
+        - address: 2
+          length: 1
+          interval: 2000
+          datatype: "UINT16"
+          function: "readInputRegisters"
+          topic: "modbus/rtu/input_register2"
+        - address: 3
+          length: 2
+          interval: 2000
+          datatype: "INT32"
+          function: "readHoldingRegisters"
+          topic: "modbus/rtu/holding_register3_4"
+        - address: 5
+          length: 2
+          interval: 2000
+          datatype: "UINT32"
+          function: "readInputRegisters"
+          topic: "modbus/rtu/input_register5_6"
+        - address: 7
+          length: 2
+          interval: 2000
+          datatype: "Float32"
+          function: "readHoldingRegisters"
+          topic: "modbus/rtu/holding_register7_8"
+        - address: 9
+          length: 4
+          interval: 3000
+          datatype: "ASCII"
+          function: "readInputRegisters"
+          topic: "modbus/rtu/input_register9_12"
