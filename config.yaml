@@ -1,5 +1,11 @@
 mqtt:
-  host: "mqtt://localhost"
+  host: "localhost"
+  username: "user"
+  password: "pass"
+  port: 1883
+  clientId: "mqtt_client_id"
+  qos: 1
+  retain: true
   status_topic: "modbus/status"
 
 modbus:
@@ -8,93 +14,96 @@ modbus:
       host: "localhost"
       port: 502
       id: 1
+      reconnect_interval: 5000
+      status_topic: "modbus/status/1"
       registers:
-        - address: 0
+        - address: 101
           length: 1
           interval: 1000
           datatype: "BOOL"
           function: "readCoils"
-          topic: "modbus/tcp/coil0"
-        - address: 1
-          length: 1
-          interval: 2000
-          datatype: "INT16"
-          function: "readHoldingRegisters"
-          topic: "modbus/tcp/holding_register1"
-        - address: 2
-          length: 1
-          interval: 2000
-          datatype: "UINT16"
-          function: "readInputRegisters"
-          topic: "modbus/tcp/input_register2"
-        - address: 3
-          length: 2
-          interval: 2000
-          datatype: "INT32"
-          function: "readHoldingRegisters"
-          topic: "modbus/tcp/holding_register3_4"
-        - address: 5
-          length: 2
-          interval: 2000
-          datatype: "UINT32"
-          function: "readInputRegisters"
-          topic: "modbus/tcp/input_register5_6"
-        - address: 7
-          length: 2
-          interval: 2000
-          datatype: "Float32"
-          function: "readHoldingRegisters"
-          topic: "modbus/tcp/holding_register7_8"
-        - address: 9
-          length: 4
-          interval: 3000
-          datatype: "ASCII"
-          function: "readInputRegisters"
-          topic: "modbus/tcp/input_register9_12"
-    - driver: "rtu"
-      path: "/dev/ttyUSB0"
-      baudRate: 9600
-      id: 2
-      registers:
-        - address: 0
+          topic: "modbusTCP/ID1/BOOL/101"
+        - address: 102
           length: 1
           interval: 1000
           datatype: "BOOL"
-          function: "readCoils"
-          topic: "modbus/rtu/coil0"
-        - address: 1
+          function: "readDiscreteInputs"
+          topic: "modbusTCP/ID1/BOOL/102"
+        - address: 201
           length: 1
           interval: 2000
-          datatype: "INT16"
+          datatype: "UINT16"
           function: "readHoldingRegisters"
-          topic: "modbus/rtu/holding_register1"
-        - address: 2
+          topic: "modbusTCP/ID1/UINT16/201"
+        - address: 202
           length: 1
           interval: 2000
           datatype: "UINT16"
           function: "readInputRegisters"
-          topic: "modbus/rtu/input_register2"
-        - address: 3
+          topic: "modbusTCP/ID1/UINT16/202"
+        - address: 301
+          length: 1
+          interval: 2000
+          datatype: "INT16"
+          function: "readHoldingRegisters"
+          topic: "modbusTCP/ID1/INT16/301"
+        - address: 302
+          length: 1
+          interval: 2000
+          datatype: "INT16"
+          function: "readInputRegisters"
+          topic: "modbusTCP/ID1/INT16/302"
+        - address: 401
           length: 2
           interval: 2000
-          datatype: "INT32"
+          datatype: "UINT32"
           function: "readHoldingRegisters"
-          topic: "modbus/rtu/holding_register3_4"
-        - address: 5
+          topic: "modbusTCP/ID1/UINT32/401"
+        - address: 403
           length: 2
           interval: 2000
           datatype: "UINT32"
           function: "readInputRegisters"
-          topic: "modbus/rtu/input_register5_6"
-        - address: 7
+          topic: "modbusTCP/ID1/UINT32/403"
+        - address: 501
+          length: 2
+          interval: 2000
+          datatype: "INT32"
+          function: "readHoldingRegisters"
+          topic: "modbusTCP/ID1/INT32/501"
+        - address: 503
+          length: 2
+          interval: 2000
+          datatype: "INT32"
+          function: "readInputRegisters"
+          topic: "modbusTCP/ID1/INT32/503"
+        - address: 601
           length: 2
           interval: 2000
           datatype: "Float32"
           function: "readHoldingRegisters"
-          topic: "modbus/rtu/holding_register7_8"
-        - address: 9
-          length: 4
-          interval: 3000
-          datatype: "ASCII"
+          topic: "modbusTCP/ID1/Float32/601"
+        - address: 603
+          length: 2
+          interval: 2000
+          datatype: "Float32"
           function: "readInputRegisters"
-          topic: "modbus/rtu/input_register9_12"
+          topic: "modbusTCP/ID1/Float32/603"
+        - address: 701
+          length: 2
+          interval: 2000
+          datatype: "ASCII"
+          function: "readHoldingRegisters"
+          topic: "modbusTCP/ID1/ASCII/701"
+        - address: 801
+          length: 2
+          interval: 2000
+          datatype: "ASCII"
+          function: "readHoldingRegisters"
+          topic: "modbusTCP/ID1/ASCII/801"
+        - address: 910
+          length: 2
+          interval: 2000
+          datatype: "INT32"
+          function: "readHoldingRegisters"
+          topic: "modbusTCP/ID1/testevazio/910"
