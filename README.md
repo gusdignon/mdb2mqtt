@@ -18,6 +18,7 @@ Este projeto é um Gateway Modbus-MQTT que permite a comunicação entre disposi
    cd modbus-mqtt-gateway
 
 2. Instale as dependências:
+    ```sh
     npm install express multer modbus-serial mqtt js-yaml
 
 ## Uso
@@ -40,70 +41,46 @@ A interface web fornece as seguintes funcionalidades:
 
 A configuração é feita através de um arquivo config.yaml. Aqui está um exemplo de configuração:
 
+```yaml
 mqtt:
-  host: "mqtt://localhost"
-  status_topic: "modbus/status"
+host: "mqtt://localhost"
+status_topic: "modbus/status"
 
 modbus:
-  connections:
+connections:
     - driver: "tcp"
-      host: "localhost"
-      port: 502
-      id: 1
-      status_topic: "modbus/status/1"
-      reconnect_interval: 10000
-      registers:
+    host: "localhost"
+    port: 502
+    id: 1
+    status_topic: "modbus/status/1"
+    reconnect_interval: 10000
+    registers:
         - address: 101
-          length: 1
-          interval: 1000
-          datatype: "BOOL"
-          function: "readCoils"
-          topic: "modbusTCP/ID1/BOOL/101"
+        length: 1
+        interval: 1000
+        datatype: "BOOL"
+        function: "readCoils"
+        topic: "modbusTCP/ID1/BOOL/101"
         - address: 102
-          length: 1
-          interval: 1000
-          datatype: "BOOL"
-          function: "readDiscreteInputs"
-          topic: "modbusTCP/ID1/BOOL/102"
+        length: 1
+        interval: 1000
+        datatype: "BOOL"
+        function: "readDiscreteInputs"
+        topic: "modbusTCP/ID1/BOOL/102"
         - address: 201
-          length: 1
-          interval: 2000
-          datatype: "UINT16"
-          function: "readHoldingRegisters"
-          topic: "modbusTCP/ID1/UINT16/201"
+        length: 1
+        interval: 2000
+        datatype: "UINT16"
+        function: "readHoldingRegisters"
+        topic: "modbusTCP/ID1/UINT16/201"
         - address: 202
-          length: 1
-          interval: 2000
-          datatype: "UINT16"
-          function: "readInputRegisters"
-          topic: "modbusTCP/ID1/UINT16/202"
+        length: 1
+        interval: 2000
+        datatype: "UINT16"
+        function: "readInputRegisters"
+        topic: "modbusTCP/ID1/UINT16/202"
         # Adicione mais registros conforme necessário
-
-## Estrutura do Projeto
-
-project-root/
-│
-├── config/
-│   └── config.js
-│
-├── mqtt/
-│   ├── client.js
-│   └── publish.js
-│
-├── modbus/
-│   ├── connection.js
-│   ├── parse.js
-│   ├── readFunctions.js
-│   └── utils.js
-│
-├── web/
-│   ├── server.js
-|   ├── handlerjs
-│   └── public/
-│       └── index.html
-│
-├── index.js
-└── config.yaml
+```
 
 ## Licença
 
