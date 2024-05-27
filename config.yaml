@@ -101,9 +101,9 @@ modbus:
           datatype: "ASCII"
           function: "readHoldingRegisters"
           topic: "modbusTCP/ID1/ASCII/801"
-        - address: 910
+        - address: 930
           length: 2
           interval: 2000
           datatype: "INT32"
           function: "readHoldingRegisters"
-          topic: "modbusTCP/ID1/testevazio/910"
+          topic: "modbusTCP/ID1/testeConfigNovaNovissima/930"

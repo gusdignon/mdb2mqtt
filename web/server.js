@@ -38,8 +38,9 @@ app.post('/upload-config', upload.single('config'), (req, res) => {
 
 // Rota para parar o gateway
 app.post('/stop', (req, res) => {
-  stopGateway();
-  res.send('Gateway parado.');
+  stopGateway(() => {
+    res.send('Gateway parado.');
+  });
 });
 
 // Rota para iniciar o gateway
@@ -50,10 +51,17 @@ app.post('/start', (req, res) => {
 
 // Rota para reiniciar o gateway
 app.post('/restart', (req, res) => {
-  restartGateway();
-  res.send('Gateway reiniciado.');
+  restartGateway(() => {
+    res.send('Gateway reiniciado.');
+  });
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Servidor web rodando em http://localhost:${port}`);
 });
+
+function closeServer(callback) {
+  server.close(callback);
+}
+
+module.exports = { closeServer };

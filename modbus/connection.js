@@ -4,6 +4,8 @@ const { getReadFunction } = require("./readFunctions");
 const { parseData } = require("./parse");
 const { createMQTTMessage } = require("./utils");
 
+let activeConnections = [];
+
 function setupModbusConnection(conn) {
   const client = new ModbusRTU();
   let isConnected = false;
@@ -54,7 +56,7 @@ function setupModbusConnection(conn) {
 
   function startReadingRegisters() {
     conn.registers.forEach(reg => {
-      setInterval(() => {
+      const intervalId = setInterval(() => {
         const readFunction = getReadFunction(reg.function);
         const timestamp = Math.floor(Date.now() / 1000);
 
@@ -74,6 +76,7 @@ function setupModbusConnection(conn) {
             console.log(`Erro ao ler ${reg.topic}:`, message);
           });
       }, reg.interval);
+      activeConnections.push({ client, intervalId });
     });
   }
 
@@ -95,4 +98,14 @@ function setupModbusConnection(conn) {
   connectModbus();
 }
 
-module.exports = { setupModbusConnection };
+function closeModbusConnections() {
+  activeConnections.forEach(({ client, intervalId }) => {
+    clearInterval(intervalId);
+    client.close(() => {
+      console.log("Conexão Modbus fechada.");
+    });
+  });
+  activeConnections = [];
+}
+
+module.exports = { setupModbusConnection, closeModbusConnections };
