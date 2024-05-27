@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway Control</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .controls, .file-management {
+            margin-bottom: 20px;
+        }
+        .btn, button {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+        }
+        .btn:hover, button:hover {
+            background-color: #0056b3;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        input[type="file"] + label {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+        }
+        input[type="file"] + label:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gateway Control</h1>
+        <div class="controls">
+            <button id="start-btn">Start Gateway</button>
+            <button id="stop-btn">Stop Gateway</button>
+            <button id="restart-btn">Restart Gateway</button>
+        </div>
+        <div class="file-management">
+            <h2>Config File</h2>
+            <a href="/download-config" class="btn">Download Config</a>
+            <input type="file" id="config-upload" accept=".yaml">
+            <label for="config-upload">Choose File</label>
+            <button id="upload-btn" class="btn">Upload Config</button>
+        </div>
+        <div id="message" class="message"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const startBtn = document.getElementById('start-btn');
+            const stopBtn = document.getElementById('stop-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const uploadBtn = document.getElementById('upload-btn');
+            const configUpload = document.getElementById('config-upload');
+            const messageDiv = document.getElementById('message');
+
+            startBtn.addEventListener('click', () => {
+                fetch('/start', { method: 'POST' })
+                    .then(response => response.text())
+                    .then(text => showMessage(text))
+                    .catch(err => showMessage(err.message));
+            });
+
+            stopBtn.addEventListener('click', () => {
+                fetch('/stop', { method: 'POST' })
+                    .then(response => response.text())
+                    .then(text => showMessage(text))
+                    .catch(err => showMessage(err.message));
+            });
+
+            restartBtn.addEventListener('click', () => {
+                fetch('/restart', { method: 'POST' })
+                    .then(response => response.text())
+                    .then(text => showMessage(text))
+                    .catch(err => showMessage(err.message));
+            });
+
+            uploadBtn.addEventListener('click', () => {
+                const file = configUpload.files[0];
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('config', file);
+
+                    fetch('/upload-config', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.text())
+                        .then(text => showMessage(text))
+                        .catch(err => showMessage(err.message));
+                } else {
+                    showMessage('Por favor, selecione um arquivo para upload.');
+                }
+            });
+
+            function showMessage(message) {
+                messageDiv.textContent = message;
+            }
+        });
+    </script>
+</body>
+</html>

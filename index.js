@@ -14,3 +14,6 @@ mqttClient.on("connect", () => {
 mqttClient.on("error", (err) => {
   console.error("Erro na conexão MQTT:", err.message);
 });
+
+// Iniciar o servidor web
+require('./web/server');

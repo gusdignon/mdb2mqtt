@@ -1,3 +1,8 @@
+// DEPRECATED
+// ARQUIVO NÃO UTILIZADO EM RUNTIME
+// rascunho inicial do gateway, mantido na pasta para referência 
+
+
 const ModbusRTU = require("modbus-serial");
 const mqtt = require("mqtt");
 const yaml = require("js-yaml");
