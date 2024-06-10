@@ -14,8 +14,8 @@ Este projeto é um Gateway Modbus-MQTT que permite a comunicação entre disposi
 
 1. Clone o repositório:
    ```sh
-   git clone https://github.com/seu-usuario/modbus-mqtt-gateway.git
-   cd modbus-mqtt-gateway
+   git clone https://github.com/gusdignon/mdb2mqtt.git
+   cd mdb2mqtt
 
 2. Instale as dependências:
     ```sh
